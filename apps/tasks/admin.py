@@ -45,6 +45,7 @@ class TaskAdminForm(forms.ModelForm):
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
     """Административная панель для управления задачами."""
+
     form = TaskAdminForm
     list_display = (
         'title',
@@ -85,13 +86,25 @@ class TaskAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
     fieldsets = (
         (None, {
-            'fields': ('title', 'slug', 'description', 'owner')
+            'fields': (
+                'title',
+                'slug',
+                'description',
+                'owner',
+            ),
         }),
         ('Статус', {
-            'fields': ('is_done', 'priority', 'deadline'),
+            'fields': (
+                'is_done',
+                'priority',
+                'deadline',
+            ),
         }),
         ('Классификация', {
-            'fields': ('category', 'tags'),
+            'fields': (
+                'category',
+                'tags',
+            ),
         }),
     )
 
@@ -103,6 +116,7 @@ class TaskAdmin(admin.ModelAdmin):
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     """Административная панель для управления категориями."""
+
     list_display = (
         'title',
         'slug',
@@ -129,6 +143,7 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
     """Административная панель для управления тегами."""
+
     list_display = (
         'title',
         'slug',

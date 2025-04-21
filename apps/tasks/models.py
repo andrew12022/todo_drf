@@ -1,13 +1,14 @@
-from django.contrib.auth.models import User
 from django.core.validators import validate_slug
 from django.db import models
 
 from apps.tasks.validators import validate_deadline
+from apps.users.models import User
 from config import constants
 
 
 class BaseModel(models.Model):
     """Абстрактная базовая модель для всех сущностей."""
+
     title = models.CharField(
         max_length=constants.MAX_LENGTH_FIELDS_OF_TITLE_AND_SLUG,
         db_index=True,
