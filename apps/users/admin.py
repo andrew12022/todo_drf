@@ -7,6 +7,7 @@ from apps.users.models import User
 
 @admin.register(User)
 class UserAdmin(UserAdmin):
+
     """Административная панель для управления пользователями."""
     list_display = (
         'email',

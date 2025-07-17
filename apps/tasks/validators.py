@@ -4,6 +4,7 @@ from django.utils import timezone
 
 def validate_deadline(value):
     """Валидатор проверки дедлайна задачи."""
+
     today = timezone.now().date()
     if value < today:
         raise ValidationError(

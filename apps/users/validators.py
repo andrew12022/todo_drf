@@ -5,6 +5,7 @@ from django.core.exceptions import ValidationError
 
 def validate_username(value):
     """Валидатор проверки имени пользователя."""
+
     if value.lower() == 'me':
         raise ValidationError(
             'Ошибка! '
