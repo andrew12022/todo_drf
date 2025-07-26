@@ -1,3 +1,4 @@
+from datetime import timedelta
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -18,6 +19,9 @@ INSTALLED_APPS = [
     'apps.tasks.apps.TasksConfig',
     'apps.users.apps.UsersConfig',
     'rest_framework',
+    'rest_framework.authtoken',
+    'rest_framework_simplejwt',
+    'djoser',
     'drf_spectacular',
 ]
 
@@ -89,6 +93,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.User'
 
 REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
@@ -97,4 +109,27 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': 'Your project description',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
+    'COMPONENT_SPLIT_REQUEST': True,
+    'SCHEMA_PATH_PREFIX': r'/api/',
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=365),
+    'AUTH_HEADER_TYPES': ('Bearer',),
+}
+
+DJOSER = {
+    'SERIALIZERS': {
+        'user': 'apps.users.api.serializers.UserSerializer',
+        'current_user': 'apps.users.api.serializers.UserSerializer',
+    },
+
+    'PERMISSIONS': {
+        'user_create': ['rest_framework.permissions.AllowAny'],
+        'user_list': ['rest_framework.permissions.IsAdminUser'],
+        'user': ['djoser.permissions.CurrentUserOrAdmin'],
+    },
+
+    'USER_CREATE_PASSWORD_RETYPE': True,
+    'LOGIN_FIELD': 'email',
 }
