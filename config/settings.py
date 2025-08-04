@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'djoser',
     'drf_spectacular',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -102,6 +103,20 @@ REST_FRAMEWORK = {
     ],
 
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+
+    'PAGE_SIZE': 10,
+
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.UserRateThrottle',
+        'rest_framework.throttling.AnonRateThrottle',
+    ],
+
+    'DEFAULT_THROTTLE_RATES': {
+        'user': '1000/day',
+        'anon': '100/day',
+    },
 }
 
 SPECTACULAR_SETTINGS = {
