@@ -9,7 +9,7 @@ from apps.tasks.models import Category, Tag, Task
 
 
 class OwnerViewSet(viewsets.ModelViewSet):
-    """."""
+    """Базовое представление с фильтрацией по владельцу."""
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -19,7 +19,7 @@ class OwnerViewSet(viewsets.ModelViewSet):
 
 
 class TaskViewSet(OwnerViewSet):
-    """."""
+    """Представление задач."""
 
     queryset = Task.objects.all()
     filter_backends = (
@@ -51,7 +51,7 @@ class TaskViewSet(OwnerViewSet):
 
 
 class CategoryViewSet(OwnerViewSet):
-    """."""
+    """Представление категорий."""
 
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
@@ -77,7 +77,8 @@ class CategoryViewSet(OwnerViewSet):
 
 
 class TagViewSet(OwnerViewSet):
-    """."""
+    """Представление тегов."""
+
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
     filter_backends = (

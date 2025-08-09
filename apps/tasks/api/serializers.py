@@ -6,7 +6,7 @@ from apps.tasks.models import Category, Tag, Task
 
 
 class AutoSlugOwnerSerializer(serializers.ModelSerializer):
-    """."""
+    """Базовый сериализатор с автослагом и владельцем."""
 
     owner = serializers.StringRelatedField(read_only=True)
     slug = serializers.SlugField(read_only=True)
@@ -23,7 +23,7 @@ class AutoSlugOwnerSerializer(serializers.ModelSerializer):
 
 
 class TaskReadSerializer(serializers.ModelSerializer):
-    """."""
+    """Сериализатор для чтения задач."""
 
     priority = serializers.CharField(
         source='get_priority_display',
@@ -59,7 +59,7 @@ class TaskReadSerializer(serializers.ModelSerializer):
 
 
 class TaskCreateSerializer(AutoSlugOwnerSerializer):
-    """."""
+    """Сериализатор для создания и обновления задач."""
 
     category = serializers.PrimaryKeyRelatedField(
         queryset=Category.objects.all(),
@@ -111,7 +111,7 @@ class TaskCreateSerializer(AutoSlugOwnerSerializer):
 
 
 class CategorySerializer(AutoSlugOwnerSerializer):
-    """."""
+    """Сериализатор категорий."""
 
     class Meta:
         model = Category
@@ -124,7 +124,7 @@ class CategorySerializer(AutoSlugOwnerSerializer):
 
 
 class TagSerializer(AutoSlugOwnerSerializer):
-    """."""
+    """Сериализатор тегов."""
 
     class Meta:
         model = Tag
